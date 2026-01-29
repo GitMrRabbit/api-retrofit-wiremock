@@ -47,62 +47,40 @@ jobs:
         with:
           name: allure-report
 
-      - name: Check report structure
-        id: check_structure
+      - name: Debug - List downloaded files
         run: |
-          echo "=== Current directory structure ==="
+          echo "=== Directory structure after download ==="
           ls -la
           echo ""
-          echo "=== Looking for Allure report ==="
-          
-          if [ -f "allure-report/index.html" ]; then
-            echo "Report found at: allure-report/"
-            echo "SOURCE_PATH=." >> $GITHUB_OUTPUT
-            echo "REPORT_PATH=allure-report" >> $GITHUB_OUTPUT
-          elif [ -f "build/reports/allure-report/index.html" ]; then
-            echo "Report found at: build/reports/allure-report/"
-            echo "SOURCE_PATH=build/reports/allure-report" >> $GITHUB_OUTPUT
-            echo "REPORT_PATH=allure-report" >> $GITHUB_OUTPUT
-          elif [ -f "index.html" ]; then
-            echo "Report found in current directory"
-            echo "SOURCE_PATH=." >> $GITHUB_OUTPUT
-            echo "REPORT_PATH=." >> $GITHUB_OUTPUT
-          else
-            echo "ERROR: Could not find Allure report index.html"
-            echo "Listing all index.html files:"
-            find . -name "index.html" 2>/dev/null
-            exit 1
-          fi
+          echo "=== allureReport folder contents ==="
+          ls -la allureReport/ || echo "No allureReport folder"
+          echo ""
+          echo "=== Check if index.html exists ==="
+          find . -name "index.html" -type f 2>/dev/null
 
       - name: Prepare deployment
         run: |
-          mkdir -p ./deploy-folder
-          
-          SOURCE_PATH="${{ steps.check_structure.outputs.SOURCE_PATH }}"
-          REPORT_PATH="${{ steps.check_structure.outputs.REPORT_PATH }}"
-          
-          echo "Copying from: $SOURCE_PATH/$REPORT_PATH"
-          
-          if [ "$REPORT_PATH" = "." ]; then
-            cp -r "$SOURCE_PATH"/* ./deploy-folder/
-          else
-            cp -r "$SOURCE_PATH/$REPORT_PATH"/* ./deploy-folder/
+          if [ ! -f "allureReport/index.html" ]; then
+            echo "ERROR: index.html not found in allureReport/"
+            exit 1
           fi
           
+          mkdir -p ./deploy-folder
+          
+          cp -r allureReport/* ./deploy-folder/
+          
+          echo "=== Deployed structure ==="
           ls -la ./deploy-folder/
-          echo ""
-          echo "=== Checking for index.html ==="
-          ls -la ./deploy-folder/index.html || echo "ERROR: No index.html!"
           
           cat > ./deploy-folder/redirect.html << 'EOF'
           <!DOCTYPE html>
           <html>
           <head>
-              <meta http-equiv="refresh" content="0; url=/allure-report/">
-              <title>Redirecting to Allure Report</title>
+              <meta http-equiv="refresh" content="0; url=./">
+              <title>Allure Test Report</title>
           </head>
           <body>
-              <p>Redirecting to <a href="/allure-report/">Allure Report</a>...</p>
+              <p>Allure report is available at the root.</p>
           </body>
           </html>
           EOF
