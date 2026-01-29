@@ -40,27 +40,78 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Download Allure report
+      - name: Download Allure report artifact
         uses: actions/download-artifact@v4
         with:
           name: allure-report
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Check report structure
+        id: check_structure
+        run: |
+          echo "=== Current directory structure ==="
+          ls -la
+          echo ""
+          echo "=== Looking for Allure report ==="
+          
+          if [ -f "allure-report/index.html" ]; then
+            echo "Report found at: allure-report/"
+            echo "SOURCE_PATH=." >> $GITHUB_OUTPUT
+            echo "REPORT_PATH=allure-report" >> $GITHUB_OUTPUT
+          elif [ -f "build/reports/allure-report/index.html" ]; then
+            echo "Report found at: build/reports/allure-report/"
+            echo "SOURCE_PATH=build/reports/allure-report" >> $GITHUB_OUTPUT
+            echo "REPORT_PATH=allure-report" >> $GITHUB_OUTPUT
+          elif [ -f "index.html" ]; then
+            echo "Report found in current directory"
+            echo "SOURCE_PATH=." >> $GITHUB_OUTPUT
+            echo "REPORT_PATH=." >> $GITHUB_OUTPUT
+          else
+            echo "ERROR: Could not find Allure report index.html"
+            echo "Listing all index.html files:"
+            find . -name "index.html" 2>/dev/null
+            exit 1
+          fi
 
-      - name: Upload artifact to GitHub Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./
+      - name: Prepare deployment
+        run: |
+          mkdir -p ./deploy-folder
+          
+          SOURCE_PATH="${{ steps.check_structure.outputs.SOURCE_PATH }}"
+          REPORT_PATH="${{ steps.check_structure.outputs.REPORT_PATH }}"
+          
+          echo "Copying from: $SOURCE_PATH/$REPORT_PATH"
+          
+          if [ "$REPORT_PATH" = "." ]; then
+            cp -r "$SOURCE_PATH"/* ./deploy-folder/
+          else
+            cp -r "$SOURCE_PATH/$REPORT_PATH"/* ./deploy-folder/
+          fi
+          
+          ls -la ./deploy-folder/
+          echo ""
+          echo "=== Checking for index.html ==="
+          ls -la ./deploy-folder/index.html || echo "ERROR: No index.html!"
+          
+          cat > ./deploy-folder/redirect.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <meta http-equiv="refresh" content="0; url=/allure-report/">
+              <title>Redirecting to Allure Report</title>
+          </head>
+          <body>
+              <p>Redirecting to <a href="/allure-report/">Allure Report</a>...</p>
+          </body>
+          </html>
+          EOF
 
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./deploy-folder
+          force_orphan: true
+          keep_files: false
