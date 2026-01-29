@@ -1,0 +1,7 @@
+Status Code: 404
+Message: Not Found
+URL: http://localhost:9090/users/999
+Headers:
+  Matched-Stub-Id: 666fcb54-f877-43e0-bc7a-57d17aeffc80
+  Transfer-Encoding: chunked
+Body:

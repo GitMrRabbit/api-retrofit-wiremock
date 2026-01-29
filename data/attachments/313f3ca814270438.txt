@@ -1,0 +1,18 @@
+Status Code: 200
+Message: OK
+URL: http://localhost:9090/users/1
+Headers:
+  Content-Type: application/json
+  Matched-Stub-Id: f27219ea-ca07-4823-b91f-45614bbd996c
+  Vary: Accept-Encoding, User-Agent
+  Transfer-Encoding: chunked
+Body:
+{
+  "data": {
+    "id": 1,
+    "email": "marisela.swift@yahoo.com",
+    "first_name": "Abdul",
+    "last_name": "Hoppe",
+    "avatar": "https://reqres.in/img/faces/1-image.jpg"
+  }
+}

@@ -1,0 +1,9 @@
+Status Code: 404
+Message: Not Found
+URL: http://localhost:9090/users/999
+Headers:
+  Content-Type: application/json
+  Matched-Stub-Id: e01b8bab-31a7-4bdf-90cb-4d956f621c14
+  Transfer-Encoding: chunked
+Body:
+{"error":"Corporis itaque excepturi."}

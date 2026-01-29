@@ -1,0 +1,5 @@
+URL: http://localhost:9090/users/999
+Method: PUT
+Headers:
+Body:
+{"name":"Russell Pfeffer","job":"Marketing Producer"}

@@ -1,0 +1,18 @@
+Status Code: 200
+Message: OK
+URL: http://localhost:9090/users/2
+Headers:
+  Content-Type: application/json
+  Matched-Stub-Id: 1d0cb1f2-c141-4d35-9d40-a037568d1638
+  Vary: Accept-Encoding, User-Agent
+  Transfer-Encoding: chunked
+Body:
+{
+  "data": {
+    "id": 2,
+    "email": "adrianne.tromp@gmail.com",
+    "first_name": "Van",
+    "last_name": "Wilderman",
+    "avatar": "https://reqres.in/img/faces/2-image.jpg"
+  }
+}

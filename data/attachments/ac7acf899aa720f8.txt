@@ -1,0 +1,31 @@
+Status Code: 200
+Message: OK
+URL: http://localhost:9090/users?page=1
+Headers:
+  Content-Type: application/json
+  Matched-Stub-Id: d77992dd-bb33-418e-8d96-e996aaf847dd
+  Vary: Accept-Encoding, User-Agent
+  Transfer-Encoding: chunked
+Body:
+{
+  "page": 1,
+  "per_page": 6,
+  "total": 12,
+  "total_pages": 2,
+  "data": [
+    {
+      "id": 1,
+      "email": "sebastian.wilkinson@gmail.com",
+      "first_name": "Rebbecca",
+      "last_name": "Kovacek",
+      "avatar": "https://reqres.in/img/faces/1-image.jpg"
+    },
+    {
+      "id": 2,
+      "email": "erasmo.adams@yahoo.com",
+      "first_name": "Dottie",
+      "last_name": "Ebert",
+      "avatar": "https://reqres.in/img/faces/2-image.jpg"
+    }
+  ]
+}

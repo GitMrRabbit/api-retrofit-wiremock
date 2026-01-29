@@ -1,0 +1,5 @@
+URL: http://localhost:9090/users
+Method: POST
+Headers:
+Body:
+{"name":"Desiree Koepp","job":"Senior Developer"}

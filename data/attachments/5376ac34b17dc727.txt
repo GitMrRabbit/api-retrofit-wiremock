@@ -1,0 +1,31 @@
+Status Code: 200
+Message: OK
+URL: http://localhost:9090/users?page=2
+Headers:
+  Content-Type: application/json
+  Matched-Stub-Id: 938d62f2-6f0e-4c14-8ff4-145f208ea687
+  Vary: Accept-Encoding, User-Agent
+  Transfer-Encoding: chunked
+Body:
+{
+  "page": 2,
+  "per_page": 6,
+  "total": 12,
+  "total_pages": 2,
+  "data": [
+    {
+      "id": 7,
+      "email": "dolly.lang@hotmail.com",
+      "first_name": "Linn",
+      "last_name": "Fadel",
+      "avatar": "https://reqres.in/img/faces/7-image.jpg"
+    },
+    {
+      "id": 8,
+      "email": "una.treutel@hotmail.com",
+      "first_name": "Cheryl",
+      "last_name": "Wolf",
+      "avatar": "https://reqres.in/img/faces/8-image.jpg"
+    }
+  ]
+}

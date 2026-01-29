@@ -1,0 +1,6 @@
+Status Code: 204
+Message: No Content
+URL: http://localhost:9090/users/1
+Headers:
+  Matched-Stub-Id: a082d503-7416-4b0c-9496-4917444dec91
+Body:

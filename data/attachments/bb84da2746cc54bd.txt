@@ -1,0 +1,18 @@
+Status Code: 200
+Message: OK
+URL: http://localhost:9090/users/3
+Headers:
+  Content-Type: application/json
+  Matched-Stub-Id: 0f1d1220-c4c6-4e01-9544-7fc7577edb88
+  Vary: Accept-Encoding, User-Agent
+  Transfer-Encoding: chunked
+Body:
+{
+  "data": {
+    "id": 3,
+    "email": "randell.dibbert@hotmail.com",
+    "first_name": "Tommie",
+    "last_name": "Balistreri",
+    "avatar": "https://reqres.in/img/faces/3-image.jpg"
+  }
+}

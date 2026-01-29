@@ -1,0 +1,9 @@
+Status Code: 404
+Message: Not Found
+URL: http://localhost:9090/users/999
+Headers:
+  Content-Type: application/json
+  Matched-Stub-Id: aab16e26-650a-4b6c-a502-e142d6de5ca9
+  Transfer-Encoding: chunked
+Body:
+{"error":"Quis non enim aut."}

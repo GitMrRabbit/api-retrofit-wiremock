@@ -1,0 +1,14 @@
+Status Code: 200
+Message: OK
+URL: http://localhost:9090/users/1
+Headers:
+  Content-Type: application/json
+  Matched-Stub-Id: c27c562e-31bf-41fe-a7c1-50c185850708
+  Vary: Accept-Encoding, User-Agent
+  Transfer-Encoding: chunked
+Body:
+{
+  "name": "Hershel Treutel",
+  "job": "Government Assistant",
+  "updatedAt": "2025-10-29T01:03:14.685Z"
+}
